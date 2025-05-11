@@ -14,11 +14,40 @@
         <a href="index.html">Startseite</a>
         <a href="login.html">Login</a>
         <a href="register.html">Registrieren</a>
+        <a href="#" id="logoutLink" style="display: none;">Logout</a>
     </nav>
 
     <!-- Produktauswahl -->
     <h1>Produkte</h1>
-    <div id="products-container"></div>
+    <div id="products-container"></div> 
+
+    <div id="adminArea" style="display: none;">
+    <h3>Neues Produkt hinzufügen</h3>
+    <form id="addProductForm">
+        <input type="text" id="name" placeholder="Name" required />
+        <input type="text" id="description" placeholder="Beschreibung" required />
+        <input type="number" id="price" placeholder="Preis" required />
+        <input type="number" id="discount" placeholder="Rabatt in %" />
+        <label>
+            <input type="checkbox" id="is_offer" /> Sonderangebot?
+        </label>
+        <input type="text" id="image_url" placeholder="Bild-URL" required />
+        <button type="submit">Hinzufügen</button>
+    </form>
+</div>
+<!-- Bearbeitungsformular für Admin -->
+<div id="editProductArea" style="display: none; margin-top: 20px;">
+    <h3>Produkt bearbeiten</h3>
+    <form id="editProductForm">
+        <input type="hidden" id="editId" />
+        <input type="text" id="editName" placeholder="Name" required />
+        <input type="text" id="editDescription" placeholder="Beschreibung" required />
+        <input type="number" id="editPrice" placeholder="Preis" required />
+        <input type="text" id="editImageUrl" placeholder="Bild-URL" required />
+        <button type="submit">Änderungen speichern</button>
+    </form>
+</div>
+
 
     <!-- jQuery zuerst laden -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     // Registrierung
     $('#registerForm').submit(function(e) {
         e.preventDefault();  // Verhindert normales Formular-Absenden
@@ -6,6 +7,7 @@ $(document).ready(function() {
         const username = $('#registerUsername').val();
         const email = $('#registerEmail').val();
         const password = $('#registerPassword').val();
+       
 
     
         $.ajax({
@@ -43,6 +45,7 @@ $(document).ready(function() {
                 localStorage.setItem('role', response.role);
                 // Nach Login z.B. auf index.html weiterleiten
                 window.location.href = 'index.html';
+              
             },
             error: function(xhr, status, error) {
                 alert('❌ Fehler beim Login: ' + xhr.responseText);
