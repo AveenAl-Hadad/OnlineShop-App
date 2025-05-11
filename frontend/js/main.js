@@ -19,6 +19,15 @@ $(document).ready(function () {
     loadProducts();
 });
 
+$('#sortPrice').on('click', function () {
+    loadProducts('price');
+});
+
+$('#sortDiscount').on('click', function () {
+    loadProducts('discount');
+});
+
+
 // ========== Hilfsfunktionen ==========
 function getToken() {
     return localStorage.getItem('token');
