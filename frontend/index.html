@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
     <title>Online Shop</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -12,45 +11,49 @@
     <!-- Navigation -->
     <nav>
         <a href="index.html">Startseite</a>
-        <a href="login.html">Login</a>
+        <a href="login.html" id="loginLink">Login</a>
         <a href="register.html">Registrieren</a>
         <a href="#" id="logoutLink" style="display: none;">Logout</a>
     </nav>
 
-    <!-- Produktauswahl -->
-    <h1>Produkte</h1>
-    <div id="products-container"></div> 
+    <!-- Produktausgabe -->
+    <main>
+        <h1>Produkte</h1>
+        <div id="products-container"></div>
+    </main>
 
-    <div id="adminArea" style="display: none;">
-    <h3>Neues Produkt hinzufügen</h3>
-    <form id="addProductForm">
-        <input type="text" id="name" placeholder="Name" required />
-        <input type="text" id="description" placeholder="Beschreibung" required />
-        <input type="number" id="price" placeholder="Preis" required />
-        <input type="number" id="discount" placeholder="Rabatt in %" />
-        <label>
-            <input type="checkbox" id="is_offer" /> Sonderangebot?
-        </label>
-        <input type="text" id="image_url" placeholder="Bild-URL" required />
-        <button type="submit">Hinzufügen</button>
-    </form>
-</div>
-<!-- Bearbeitungsformular für Admin -->
-<div id="editProductArea" style="display: none; margin-top: 20px;">
-    <h3>Produkt bearbeiten</h3>
-    <form id="editProductForm">
-        <input type="hidden" id="editId" />
-        <input type="text" id="editName" placeholder="Name" required />
-        <input type="text" id="editDescription" placeholder="Beschreibung" required />
-        <input type="number" id="editPrice" placeholder="Preis" required />
-        <input type="text" id="editImageUrl" placeholder="Bild-URL" required />
-        <button type="submit">Änderungen speichern</button>
-    </form>
-</div>
+    <!-- Admin: Neues Produkt hinzufügen -->
+    <section id="adminArea" style="display: none; margin-top: 40px;">
+        <h2>Neues Produkt hinzufügen</h2>
+        <form id="addProductForm">
+            <input type="text" id="name" placeholder="Name" required />
+            <input type="text" id="description" placeholder="Beschreibung" required />
+            <input type="number" id="price" placeholder="Preis (€)" required />
+            <input type="number" id="discount" placeholder="Rabatt in %" />
+            <label>
+                <input type="checkbox" id="is_offer" /> Sonderangebot?
+            </label>
+            <input type="text" id="image_url" placeholder="Bild-URL" required />
+            <button type="submit">Hinzufügen</button>
+        </form>
+    </section>
 
+    <!-- Admin: Produkt bearbeiten -->
+    <section id="editProductArea" style="display: none; margin-top: 40px;">
+        <h2>Produkt bearbeiten</h2>
+        <form id="editProductForm">
+            <input type="hidden" id="editId" />
+            <input type="text" id="editName" placeholder="Name" required />
+            <input type="text" id="editDescription" placeholder="Beschreibung" required />
+            <input type="number" id="editPrice" placeholder="Preis (€)" required />
+            <input type="text" id="editImageUrl" placeholder="Bild-URL" required />
+            <button type="submit">Änderungen speichern</button>
+        </form>
+    </section>
 
-    <!-- jQuery zuerst laden -->
+    <!-- Scripte -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/main.js"></script>
+
 </body>
 </html>
