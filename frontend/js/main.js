@@ -17,16 +17,8 @@ $(document).ready(function () {
     });
 
     loadProducts();
+    
 });
-
-$('#sortPrice').on('click', function () {
-    loadProducts('price');
-});
-
-$('#sortDiscount').on('click', function () {
-    loadProducts('discount');
-});
-
 
 // ========== Hilfsfunktionen ==========
 function getToken() {
@@ -55,7 +47,7 @@ function showMessage(message, type = 'info') {
     });
 }
 
-function loadProducts(sortBy = null) {
+function loadProducts(sortBy = '') {
     $.ajax({
         url: 'http://localhost:5000/api/products',
         method: 'GET',
@@ -63,22 +55,50 @@ function loadProducts(sortBy = null) {
             if (sortBy === 'price') {
                 products.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
             } else if (sortBy === 'discount') {
-                products.sort((a, b) => (parseFloat(b.discount) || 0) - (parseFloat(a.discount) || 0));
+                products.sort((a, b) => parseFloat(b.discount || 0) - parseFloat(a.discount || 0));
             }
 
+            $('#products-container').empty();
+
             if (products.length > 0) {
-                $('#products-container').empty();
-                products.forEach(product => renderProduct(product));
+                products.forEach(product => {
+                    let priceDisplay = `<p>€${parseFloat(product.price).toFixed(2)}</p>`;
+
+                    if (product.is_offer && parseFloat(product.discount) > 0) {
+                        const discounted = product.price - (product.price * product.discount / 100);
+                        priceDisplay = `
+                            <p>
+                                <del>€${parseFloat(product.price).toFixed(2)}</del>
+                                <strong style="color:red;"> €${discounted.toFixed(2)} (Angebot!)</strong>
+                            </p>`;
+                    }
+                    const imageUrl = `http://localhost:5000/static/images/${product.image_url}`;
+                    const productHtml = `
+                        <div class="product-card">
+                            <img src="${imageUrl}" alt="${product.name}">
+                            <h3>${product.name}</h3>
+                            <p>${product.description}</p>
+                            ${priceDisplay}
+                            ${isAdmin() ? `
+                                <button class="edit-product" data-product='${JSON.stringify(product)}'>Bearbeiten</button>
+                                <button class="delete-product" data-id="${product.id}">Löschen</button>
+                            ` : `
+                                <button class="add-to-cart" data-id="${product.id}">In den Warenkorb</button>
+                            `}
+                        </div>
+                    `;
+                    $('#products-container').append(productHtml);
+                });
             } else {
                 $('#products-container').html('<p>Keine Produkte gefunden.</p>');
             }
         },
-        error: function (err) {
-            showMessage('Fehler beim Laden der Produkte.', 'error');
-            console.error(err);
+        error: function () {
+            $('#products-container').html('<p>Fehler beim Laden der Produkte.</p>');
         }
     });
 }
+
 
 function renderProduct(product) {
     let priceDisplay = '';
@@ -89,10 +109,10 @@ function renderProduct(product) {
     } else {
         priceDisplay = `<p>€${parseFloat(product.price).toFixed(2)}</p>`;
     }
-
+    const imageUrl = `http://localhost:5000/static/images/${product.image_url}`;
     const html = `
         <div class="product-card">
-            <img src="${product.image_url}" alt="${product.name}">
+            <img src="${imageUrl}" alt="${product.name}">
             <h3>${product.name}</h3>
             <p>${product.description}</p>
             ${priceDisplay}
@@ -104,3 +124,5 @@ function renderProduct(product) {
     `;
     $('#products-container').append(html);
 }
+
+

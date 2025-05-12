@@ -14,46 +14,36 @@
         <a href="register.html">Registrieren</a>
         <a href="#" id="logoutLink" style="display: none;">Logout</a>
     </nav>
+       <!-- Sortieren Dropdown -->
+    <div id="sortOptions" style="margin-bottom: 20px;">
+        <label for="sortSelect">Sortieren nach:</label>
+        <select id="sortSelect">
+            <option value="">-- bitte wählen --</option>
+            <option value="price">Preis (aufsteigend)</option>
+            <option value="discount">Rabatt (absteigend)</option>
+        </select>
+    </div>
 
     <!-- Produktauswahl -->
     <h1>Produkte</h1>
     <div id="products-container"></div>
     
-    <!-- Sortier-Optionen -->
-    <div id="sortOptions" style="margin-bottom: 20px;">
-        <label>Sortieren nach: </label>
-        <button id="sortPrice">Preis</button>
-        <button id="sortDiscount">Rabatt</button>
-    </div>
-
-
-    <!-- Fehlermeldungen / Status -->
+     <!-- Fehlermeldungen / Status -->
     <div id="messageBox" style="display:none; padding:10px; margin-top:10px;"></div>
 
     <!-- Adminbereich -->
     <div id="adminArea" style="display: none;">
         <h3>Neues Produkt hinzufügen</h3>
-        <form id="addProductForm">
+        <form id="addProductForm" enctype="multipart/form-data">
             <input type="text" id="name" placeholder="Name" required />
             <input type="text" id="description" placeholder="Beschreibung" required />
             <input type="number" id="price" placeholder="Preis" required />
             <input type="number" id="discount" placeholder="Rabatt in %" />
-            <label><input type="checkbox" id="is_offer" /> Sonderangebot?</label>
-            <input type="text" id="image_url" placeholder="Bild-URL" required />
+            <label>
+                <input type="checkbox" id="is_offer" /> Sonderangebot?
+            </label>
+            <input type="text" id="image_url" placeholder="Bilddateiname (z. B. produkt1.jpg)" required />
             <button type="submit">Hinzufügen</button>
-        </form>
-    </div>
-
-    <!-- Produkt bearbeiten -->
-    <div id="editProductArea" style="display: none; margin-top: 20px;">
-        <h3>Produkt bearbeiten</h3>
-        <form id="editProductForm">
-            <input type="hidden" id="editId" />
-            <input type="text" id="editName" placeholder="Name" required />
-            <input type="text" id="editDescription" placeholder="Beschreibung" required />
-            <input type="number" id="editPrice" placeholder="Preis" required />
-            <input type="text" id="editImageUrl" placeholder="Bild-URL" required />
-            <button type="submit">Änderungen speichern</button>
         </form>
     </div>
 
