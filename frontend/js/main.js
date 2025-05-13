@@ -19,7 +19,11 @@ $(document).ready(function () {
     loadProducts();
     
 });
-
+// Sort Option
+$('#sortSelect').on('change', function () {
+    const sortBy = $(this).val();
+    loadProducts(sortBy);
+});
 // ========== Hilfsfunktionen ==========
 function getToken() {
     return localStorage.getItem('token');

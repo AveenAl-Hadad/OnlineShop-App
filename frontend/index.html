@@ -15,7 +15,7 @@
         <a href="#" id="logoutLink" style="display: none;">Logout</a>
     </nav>
        <!-- Sortieren Dropdown -->
-    <div id="sortOptions" style="margin-bottom: 20px;">
+    <div id="sortOptions">
         <label for="sortSelect">Sortieren nach:</label>
         <select id="sortSelect">
             <option value="">-- bitte wählen --</option>
@@ -44,6 +44,25 @@
             </label>
             <input type="text" id="image_url" placeholder="Bilddateiname (z. B. produkt1.jpg)" required />
             <button type="submit">Hinzufügen</button>
+        </form>
+    </div>
+
+    <!-- Produkt bearbeiten -->
+    <div id="editProductArea">
+        <h3>Produkt bearbeiten</h3>
+        <form id="editProductForm">
+            <input type="hidden" id="editId" />
+            <input type="text" id="editName" placeholder="Name" required />
+            <input type="text" id="editDescription" placeholder="Beschreibung" required />
+            <input type="number" id="editPrice" placeholder="Preis" required />
+            <input type="text" id="editImageUrl" />
+
+            <input type="number" id="editDiscount" placeholder="Rabatt in %" />
+            <label>
+                <input type="checkbox" id="editIsOffer" /> Sonderangebot?
+            </label>
+
+            <button type="submit">Änderungen speichern</button>
         </form>
     </div>
 
