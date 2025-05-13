@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <title>Online Shop</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -12,8 +14,31 @@
         <a href="index.html">Startseite</a>
         <a href="login.html" id="loginLink">Login</a>
         <a href="register.html">Registrieren</a>
+        <a href="addproduct.html" id="addProductLink">Produkt hinzufügen</a>
         <a href="#" id="logoutLink" style="display: none;">Logout</a>
     </nav>
+ 
+    <!-- Warenkorb Button oben rechts -->
+    <button id="cartButton" style="position: fixed; top: 20px; right: 20px;">
+        🛒 Warenkorb <span id="cartCount">(0)</span>
+    </button>
+
+    <!-- Warenkorb Modal -->
+    <div id="cartModal" >
+        <div class="cart-modal-content">
+            <span class="close" id="closeCartModal">&times;</span>
+            <h2>Dein Warenkorb</h2>
+            <div id="cartItemsList"></div>
+            <p id="cartTotal">Gesamt: €0.00</p>
+            <div class="cart-actions">
+                <button id="clearCart">Warenkorb leeren</button>
+                <button id="checkout">Zur Kasse</button>
+                <button id="continueShopping">Weiter einkaufen</button>
+            </div>
+        </div>
+    </div>
+
+
        <!-- Sortieren Dropdown -->
     <div id="sortOptions">
         <label for="sortSelect">Sortieren nach:</label>
@@ -31,44 +56,48 @@
      <!-- Fehlermeldungen / Status -->
     <div id="messageBox" style="display:none; padding:10px; margin-top:10px;"></div>
 
-    <!-- Adminbereich -->
-    <div id="adminArea" style="display: none;">
-        <h3>Neues Produkt hinzufügen</h3>
-        <form id="addProductForm" enctype="multipart/form-data">
-            <input type="text" id="name" placeholder="Name" required />
-            <input type="text" id="description" placeholder="Beschreibung" required />
-            <input type="number" id="price" placeholder="Preis" required />
-            <input type="number" id="discount" placeholder="Rabatt in %" />
-            <label>
-                <input type="checkbox" id="is_offer" /> Sonderangebot?
-            </label>
-            <input type="text" id="image_url" placeholder="Bilddateiname (z. B. produkt1.jpg)" required />
-            <button type="submit">Hinzufügen</button>
-        </form>
-    </div>
+    
 
-    <!-- Produkt bearbeiten -->
-    <div id="editProductArea">
-        <h3>Produkt bearbeiten</h3>
+   <!-- Produkt bearbeiten Modal -->
+<div id="editProductModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeEditModal">&times;</span>
+        <h3>🛠️ Produkt bearbeiten</h3>
         <form id="editProductForm">
             <input type="hidden" id="editId" />
-            <input type="text" id="editName" placeholder="Name" required />
-            <input type="text" id="editDescription" placeholder="Beschreibung" required />
-            <input type="number" id="editPrice" placeholder="Preis" required />
+
+            <label>Name</label>
+            <input type="text" id="editName" required />
+
+            <label>Beschreibung</label>
+            <input type="text" id="editDescription" required />
+
+            <label>Preis</label>
+            <input type="number" id="editPrice" required />
+
+            <label>Bild-URL</label>
             <input type="text" id="editImageUrl" />
 
-            <input type="number" id="editDiscount" placeholder="Rabatt in %" />
+            <label>Rabatt (%)</label>
+            <input type="number" id="editDiscount" />
+
             <label>
-                <input type="checkbox" id="editIsOffer" /> Sonderangebot?
+                <input type="checkbox" id="editIsOffer" />
+                Sonderangebot?
             </label>
 
-            <button type="submit">Änderungen speichern</button>
+            <div style="margin-top: 15px;">
+                <button type="submit" class="btn-save"><i class="fas fa-save"></i> Speichern</button>
+                <button type="button" class="btn-cancel" id="cancelEditBtn"><i class="fas fa-times-circle"></i> Abbrechen</button>
+            </div>
         </form>
     </div>
+</div>
 
     <!-- Skripte -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/admin.js"></script>
+    <script src="js/warenkorp.js"></script>
 </body>
 </html>

@@ -35,7 +35,8 @@ exports.addProduct = (req, res) => {
 
 // Ein Produkt bearbeiten
 exports.updateProduct = (req, res) => {
-    const { id, name, description, price, discount, is_offer, image_url } = req.body;
+    const id = req.params.id; // 🔁 Änderung hier!
+    const { name, description, price, discount, is_offer, image_url } = req.body;
 
     if (!name || !description || !price) {
         return res.status(400).json({ message: 'Alle Felder müssen ausgefüllt werden!' });
