@@ -1,4 +1,16 @@
-// Wird ausgeführt, wenn das DOM vollständig geladen ist
+/**
+ * Admin-Funktionen werden nur angezeigt, wenn der Benutzer ein Admin ist.
+ * Produkte werden geladen, sortiert und angezeigt.
+ * Admins können bearbeiten/löschen, normale Nutzer nur "in den Warenkorb" legen.
+ * Tokens werden sicher behandelt (JWT).
+ * Logout funktioniert mit Bestätigung & Weiterleitung.
+ * Visuelle Nachrichtenbox (showMessage)
+ * 
+ * Wird ausgeführt, wenn das DOM vollständig geladen ist
+ * 
+ * Autor Aveen Al Hadad
+ */
+
 $(document).ready(function () {
     const token = getToken(); // 🔐 Token (JWT) aus localStorage holen
 
