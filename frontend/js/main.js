@@ -39,6 +39,8 @@ $(document).ready(function () {
     });
 
     loadProducts(); // 🛍️ Produkte beim Start laden
+    storeAllProducts(products); // im loadProducts()
+
 });
 
 // 🔁 Reagiert auf Änderung im Dropdown "Sortieren nach"
@@ -83,6 +85,8 @@ function loadProducts(sortBy = '') {
         url: 'http://localhost:5000/api/products', // API-Endpunkt
         method: 'GET',
         success: function (products) {
+
+            storeAllProducts(products);// ✅ Wichtig für renderCart()
             // 🔃 Produkte sortieren
             if (sortBy === 'price') {
                 products.sort((a, b) => parseFloat(a.price) - parseFloat(b.price)); // Preis aufsteigend
