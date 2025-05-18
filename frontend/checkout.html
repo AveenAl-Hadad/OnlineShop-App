@@ -3,30 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Checkout</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/checkout-style.css">
 </head>
 <body>
     <h2>🧾 Checkout</h2>
 
-    <form id="checkoutForm">
-        <label>Lieferadresse:</label><br>
-        <input type="text" id="delivery_address" required><br>
+     <form id="checkoutForm">
+        <label for="delivery_address">Lieferadresse:</label>
+        <input type="text" id="delivery_address" required>
 
-        <label>Name:</label><br>
-        <input type="text" id="name" required><br>
+        <label for="name">Name:</label>
+        <input type="text" id="name" required>
 
-        <label>Telefonnummer:</label><br>
-        <input type="text" id="phone" required><br>
+        <label for="phone">Telefonnummer:</label>
+        <input type="text" id="phone" required>
 
-        <label>E-Mail:</label><br>
-        <input type="email" id="email" required><br>
+        <label for="email">E-Mail:</label>
+        <input type="email" id="email" required>
 
-        <label>Zahlungsart:</label><br>
+        <label for="payment_method">Zahlungsart:</label>
         <select id="payment_method" required>
             <option value="Rechnung">Rechnung</option>
             <option value="PayPal">PayPal</option>
             <option value="Kreditkarte">Kreditkarte</option>
-        </select><br><br>
+        </select>
 
         <button type="submit">🛍️ Bestellung abschicken</button>
     </form>

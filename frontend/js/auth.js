@@ -48,7 +48,7 @@ $(document).ready(function() {
             contentType: 'application/json',
             data: JSON.stringify({ email, password }),
             success: function(response) {
-                alert('Login erfolgreich! ✅');
+                //alert('Login erfolgreich! ✅');
                 // Speichere das Token und die Rolle lokal im Browser
                 localStorage.setItem('token', response.token);// Für Authentifizierung bei späteren API-Aufrufen
                 localStorage.setItem('role', response.role); // z. B. 'admin' oder 'user'

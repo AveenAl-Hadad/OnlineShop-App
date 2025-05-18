@@ -49,16 +49,3 @@ exports.createOrder = async (req, res) => {
     });
 };
 
-// für Admin
-exports.getAllOrders = (req, res) => {
-  const sql = 'SELECT * FROM orders ORDER BY order_date DESC';
-
-  db.query(sql, (err, results) => {
-    if (err) {
-      console.error('❌ Fehler beim Abrufen aller Bestellungen:', err);
-      return res.status(500).json({ message: 'Datenbankfehler beim Abrufen der Bestellungen' });
-    }
-
-    res.json(results); // Gibt alle Bestellungen als JSON zurück
-  });
-};
