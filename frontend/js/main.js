@@ -15,18 +15,26 @@ $(document).ready(function () {
     const token = getToken(); // 🔐 Token (JWT) aus localStorage holen
 
     $('#addProductLink').hide(); // 🔒 addProductLink zu Beginn ausblenden
+    $('#orderLinkAdmin').hide();
+    $('#orderLinkCustomer').hide();
 
     if (token) {
         // Wenn ein Token vorhanden ist = Benutzer ist eingeloggt
         $('#logoutLink').show();     // 🔓 Logout-Link anzeigen
         $('#loginLink').hide();      // 🔒 Login-Link ausblenden
         $('#addProductLink').hide();      // addProductLink sicherheitshalber nochmal verstecken
+        $('#orderLinkCustomer').show();
+        $('#orderLinkAdmin').hide();
+
+
 
         if (isAdmin()) {
             // ✅ Wenn Rolle = admin
             $('#adminArea').show();   // 📦 Adminbereich (z. B. Formular) anzeigen
             $('#addProductLink').show();   // 🔗 addProductLink (z. B. Produkt hinzufügen) anzeigen
             $('#cartButton').hide();  // 🛒 Warenkorb ausblenden (Admin braucht das nicht)
+            $('#orderLinkCustomer').hide();
+            $('#orderLinkAdmin').show();
         }
     }
 
@@ -37,10 +45,20 @@ $(document).ready(function () {
         showMessage('Du wurdest ausgeloggt.', 'success'); // ✅ Nachricht zeigen
         setTimeout(() => window.location.href = 'index.html', 1000); // ⏱️ Weiterleitung zur Startseite
     });
+   
+   // 👉 Nur Produkte laden, wenn nicht auf Bestellseite
+    if (!window.location.pathname.includes('order.html')) {
+        loadProducts();
+    }
 
-    loadProducts(); // 🛍️ Produkte beim Start laden
-    storeAllProducts(products); // im loadProducts()
-
+    // 👉 Nur Bestellungen laden, wenn auf order.html
+    if (window.location.pathname.includes('order.html')) {
+        if (!token) {
+            $('#orders-container').html('<p>⚠️ Du bist nicht eingeloggt.</p>');
+            return;
+        }
+        loadOrders(token);
+    }
 });
 
 // 🔁 Reagiert auf Änderung im Dropdown "Sortieren nach"

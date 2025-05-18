@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h2>🧾 Checkout</h2>
+
+    <form id="checkoutForm">
+        <label>Lieferadresse:</label><br>
+        <input type="text" id="delivery_address" required><br>
+
+        <label>Name:</label><br>
+        <input type="text" id="name" required><br>
+
+        <label>Telefonnummer:</label><br>
+        <input type="text" id="phone" required><br>
+
+        <label>E-Mail:</label><br>
+        <input type="email" id="email" required><br>
+
+        <label>Zahlungsart:</label><br>
+        <select id="payment_method" required>
+            <option value="Rechnung">Rechnung</option>
+            <option value="PayPal">PayPal</option>
+            <option value="Kreditkarte">Kreditkarte</option>
+        </select><br><br>
+
+        <button type="submit">🛍️ Bestellung abschicken</button>
+    </form>
+
+    <div id="checkoutMessage"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/checkout.js"></script>
+</body>
+</html>

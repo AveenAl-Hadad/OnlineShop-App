@@ -1,9 +1,13 @@
+require('dotenv').config();
 const express = require('express');
+const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
-const app = express();
+
 const PORT = 5000;
+const orderRoutes = require('./routes/orderRoutes');
+
 
 // Middleware
 app.use(cors({
@@ -19,7 +23,7 @@ app.use('/static/images', express.static(path.join(__dirname, 'static/images')))
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/products', require('./routes/productRoutes'));
-
+app.use('/api/orders', orderRoutes);// z. B. http://localhost:5000/api/orders/user
 
 // Test
 app.get('/', (req, res) => res.send('✅ Backend läuft!'));

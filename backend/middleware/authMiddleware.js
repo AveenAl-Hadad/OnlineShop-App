@@ -11,8 +11,11 @@ exports.verifyToken = (req, res, next) => {
     const token = authHeader.split(' ')[1];
 
     try {
-        const decoded = jwt.verify(token, 'dein-geheimschlüssel'); // denselben geheimen Schlüssel wie beim Login verwenden
-        req.user = decoded;
+        const decoded = jwt.verify(token, process.env.JWT_SECRET); // denselben geheimen Schlüssel wie beim Login verwenden
+        console.log("✅ TOKEN DECODED:", decoded); // <== HIER
+        req.user = { id: decoded.userId, role: decoded.role };
+        
+        //req.user = decoded;
         next();
     } catch (err) {
         return res.status(403).json({ message: 'Ungültiger Token' });

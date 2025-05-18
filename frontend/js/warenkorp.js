@@ -45,9 +45,10 @@ $(document).ready(function () {
     });
 
     // 💳 Zur Kasse (Platzhalter)
-    $(document).on('click', '#checkout', function () {
-        alert('Zur Kasse gehen – noch nicht implementiert.');
+   $(document).on('click', '#checkout', function () {
+        window.location.href = 'checkout.html';
     });
+
 
     // ➕ Menge erhöhen
     $(document).on('click', '.qty-plus', function () {
