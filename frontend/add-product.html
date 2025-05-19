@@ -1,0 +1,23 @@
+<!-- 🔳 Produkt hinzufügen Modal -->
+    <div id="addProductModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" id="closeAddProductModal">&times;</span>
+            <h3>🛒 Neues Produkt hinzufügen</h3>
+            <form id="addProductForm">
+            <input type="text" id="name" placeholder="Produktname" required />
+            <input type="text" id="description" placeholder="Beschreibung" required />
+            <input type="number" id="price" placeholder="Preis (€)" required />
+            <input type="number" id="discount" placeholder="Rabatt (%)" />
+            <label>
+                <input type="checkbox" id="is_offer" /> Sonderangebot?
+            </label>
+            <input type="text" id="image_url" placeholder="Bild-URL" required />
+
+            <div class="button-group">
+                <button type="submit" class="btn-save"><i class="fas fa-plus-circle"></i> Hinzufügen</button>
+                <button type="reset" class="btn-reset"><i class="fas fa-rotate-left"></i> Zurücksetzen</button>
+                <button type="button" class="btn-cancel" id="cancelAddProduct"><i class="fas fa-xmark"></i> Abbrechen</button>
+            </div>
+            </form>
+        </div>
+    </div>

@@ -15,6 +15,78 @@ nav a {
     margin: 0 15px;
     text-decoration: none;
 }
+#user-info{
+    float: right;
+    font-weight: bold;
+    color: white; 
+    margin-right: 15px;
+}
+/* Bild Galary*/
+.slideshow {
+  width: 100%;
+  
+  height: 400px;
+  margin: 5px auto;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.caption {
+  position: absolute;
+  bottom: 20px;
+  left: 30px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  max-width: 90%;
+}
+/* ⬅️➡️ Navigationspfeile */
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 32px;
+  font-weight: bold;
+  background-color: rgba(0,0,0,0.4);
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 12px;
+  border-radius: 50%;
+  z-index: 10;
+  transition: background 0.3s;
+}
+
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.7);
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+
 
 h1 {
     text-align: center;
@@ -201,32 +273,28 @@ hr {
     margin-top: 16px;
 }
 
-.btn-save {
-    background-color: #28a745;
-    color: white;
+.btn-save, .btn-cancel, .btn-reset
+{
+   color: white;
     padding: 8px 16px;
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: bold; 
 }
-
-.btn-cancel {
-    background-color: #dc3545;
-    color: white;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-}
+.btn-save { background-color: #28a745;}
+.btn-cancel {background-color: #dc3545;}
+.btn-reset {background-color: #ffc107;}
 
 .btn-save:hover {
-    background-color: #218838;
+    background-color: #0b3114;
 }
 
 .btn-cancel:hover {
-    background-color: #c82333;
+    background-color: #6d0712;
+}
+.btn-reset:hover {
+    background-color: #d3bd12;
 }
 .styled-form {
     background-color: #f9f9f9;
@@ -298,16 +366,7 @@ hr {
 .btn-cancel:hover {
     background-color: #c82333;
 }
-.styled-form textarea {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 14px;
-    resize: vertical; /* Benutzer darf die Höhe anpassen */
-    max-height: 150px; /* Begrenzung, damit es nicht zu groß wird */
-    overflow-y: auto;  /* Scrollbar bei zu viel Text */
-    line-height: 1.4;
-}
+
 /* upload admin button bearbeiten, löschen und inderwarenkorp*/
 .product-card {
     border: 1px solid #ddd;
@@ -389,3 +448,38 @@ hr {
     cursor: pointer;
 }
 
+/* Kunden Bestellungen order.html*/
+.order-box {
+      border: 1px solid #ccc;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      background-color: #f9f9f9;
+    }
+/* addProdukt */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+}
+
+.modal .close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 22px;
+  cursor: pointer;
+}

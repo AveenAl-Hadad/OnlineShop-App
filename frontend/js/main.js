@@ -14,27 +14,36 @@
 $(document).ready(function () {
     const token = getToken(); // 🔐 Token (JWT) aus localStorage holen
 
-    $('#addProductLink').hide(); // 🔒 addProductLink zu Beginn ausblenden
+    $('#openAddProductModal').hide(); // 🔒 addProductLink zu Beginn ausblenden
     $('#orderLinkAdmin').hide();
     $('#orderLinkCustomer').hide();
-
+    $('#user-info').text(''); // sicherheitshalber leeren
+    
     if (token) {
         // Wenn ein Token vorhanden ist = Benutzer ist eingeloggt
         $('#logoutLink').show();     // 🔓 Logout-Link anzeigen
+       // $('#cartButton').show(); 
         $('#loginLink').hide();      // 🔒 Login-Link ausblenden
-        $('#addProductLink').hide();      // addProductLink sicherheitshalber nochmal verstecken
+        $('#openAddProductModal').hide();      // addProductLink sicherheitshalber nochmal verstecken
         $('#orderLinkCustomer').show();
         $('#orderLinkAdmin').hide();
 
-
+        // 👤 Benutzername oder E-Mail in der Navbar anzeigen
+        const payload = parseJwt(token);
+        if (payload && payload.name) {
+            $('#user-info').text(`👋 Hallo ${payload.name}`);
+        } else if (payload && payload.email) {
+            $('#user-info').text(`👋 Eingeloggt: ${payload.email}`);
+        }
 
         if (isAdmin()) {
             // ✅ Wenn Rolle = admin
             $('#adminArea').show();   // 📦 Adminbereich (z. B. Formular) anzeigen
-            $('#addProductLink').show();   // 🔗 addProductLink (z. B. Produkt hinzufügen) anzeigen
-            $('#cartButton').hide();  // 🛒 Warenkorb ausblenden (Admin braucht das nicht)
+            $('#openAddProductModal').show();   // 🔗 addProductLink (z. B. Produkt hinzufügen) anzeigen
+          //  $('#cartButton').hide();  // 🛒 Warenkorb ausblenden (Admin braucht das nicht)
             $('#orderLinkCustomer').hide();
             $('#orderLinkAdmin').show();
+          
         }
     }
 
@@ -166,3 +175,12 @@ function loadProducts(sortBy = '') {
         }
     });
 }
+storeAllProducts(products); 
+// HTML-Fragmente mit jQuery Am Ende von index.html
+$(document).ready(function () {
+  // Lade externe HTML-Blöcke
+  $('#add-product-container').load('add-product.html');
+  $('#edit-product-container').load('edit-product.html');
+  $('#slideshow').load('galary-bilder.html');
+  $('#cartModal').load('warenkorp.html');
+});

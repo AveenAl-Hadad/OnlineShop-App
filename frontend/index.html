@@ -9,23 +9,24 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <a href="index.html">Startseite</a>
-        <a href="login.html" id="loginLink">Login</a>
-        <a href="register.html">Registrieren</a>
-        <a href="addproduct.html" id="addProductLink">Produkt hinzufügen</a>
-        <a href="order.html" id="orderLinkCustomer">Meine Bestellungen</a>
-        <a href="admin-orders.html"  id="orderLinkAdmin">Alle Bestellungen</a>
-        <a href="#" id="logoutLink" style="display: none;">Logout</a>
-    </nav>
- 
-    <!-- Warenkorb Button oben rechts -->
-    <button id="cartButton" style="position: fixed; top: 20px; right: 20px;">
-        🛒 Warenkorb <span id="cartCount">(0)</span>
-    </button>
+    <!-- Navigation automatisch laden -->
+  <nav>
+    <a href="index.html">Startseite</a>
+    
+    <a href="register.html">Registrieren</a>
+    <a href="#" id="openAddProductModal">Produkt hinzufügen</a>
+    <a href="order.html" id="orderLinkCustomer">Meine Bestellungen</a>
+    <a href="admin-orders.html" id="orderLinkAdmin">Alle Bestellungen</a>
+    <div id="user-info" style="float: right; font-weight: bold; color: white; margin-right: 15px;"></div>
+    <a href="#" id="logoutLink" style="display: none;float: right;">Abmelden</a>
+    <a href="login.html" id="loginLink" style="float: right;">Anmelden</a>  
+    <button id="cartButton" style="float: right; margin-right: 10px;">🛒 Warenkorb <span id="cartCount">(0)</span></button>
+</nav>
+<!--Bild galary -->
+<div id="slideshow"></div>
 
-    <!-- Warenkorb Modal -->
+ <!-- Warenkorb Modal -->
+
     <div id="cartModal" >
         <div class="cart-modal-content">
             <span class="close" id="closeCartModal">&times;</span>
@@ -41,7 +42,6 @@
             </div>
         </div>
     </div>
-   
     <!-- 🧾 Sortieren -->
     <div id="sortOptions">
         <label for="sortSelect">Sortieren nach:</label>
@@ -55,42 +55,12 @@
      <!-- 🛍️ Produkte -->
     <h1>Produkte</h1>
     <div id="products-container"></div>
-    
-    <!-- 🔧 Bearbeiten Modal -->
-    <div id="editProductModal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="closeEditModal">&times;</span>
-            <h3>🛠️ Produkt bearbeiten</h3>
-            <form id="editProductForm">
-                <input type="hidden" id="editId" />
-                <label>Name</label>
-                <input type="text" id="editName" required />
-                <label>Beschreibung</label>
-                <input type="text" id="editDescription" required />
-                <label>Preis</label>
-                <input type="number" id="editPrice" required />
-                <label>Bild-URL</label>
-                <input type="text" id="editImageUrl" />
-                <label>Rabatt (%)</label>
-                <input type="number" id="editDiscount" />
-                <label>
-                    <input type="checkbox" id="editIsOffer" />
-                    Sonderangebot?
-                </label>
-                <div style="margin-top: 15px;">
-                    <button type="submit" class="btn-save">
-                        <i class="fas fa-save"></i> Speichern
-                    </button>
-                    <button type="button" class="btn-cancel" id="cancelEditBtn">
-                        <i class="fas fa-times-circle"></i> Abbrechen
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-
      <!-- 🧠 Meldungen -->
     <div id="messageBox" style="display:none; padding:10px; margin-top:10px;"></div>
+
+    <!-- Wird per jQuery geladen -->
+    <div id="add-product-container"></div>
+    <div id="edit-product-container"></div>
 
     <!-- 📜 Skripte -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -98,6 +68,6 @@
     <script src="js/admin.js"></script>
     <script src="js/warenkorp.js"></script>
     <script src="js/order.js"></script>
-
+    <script src="js/galary-bilder.js"></script>
 </body>
 </html>

@@ -49,3 +49,12 @@ exports.createOrder = async (req, res) => {
     });
 };
 
+exports.getAllOrders = (req, res) => {
+    db.query('SELECT * FROM orders', (err, results) => {
+        if (err) {
+            console.error('Fehler beim Abrufen der Bestellungen:', err);
+            return res.status(500).json({ message: 'Serverfehler' });
+        }
+        res.json(results);
+    });
+};

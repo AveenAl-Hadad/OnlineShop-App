@@ -1,0 +1,32 @@
+ <!-- 🔧 Bearbeiten Modal -->
+    <div id="editProductModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeEditModal">&times;</span>
+            <h3>🛠️ Produkt bearbeiten</h3>
+            <form id="editProductForm">
+                <input type="hidden" id="editId" />
+                <label>Name</label>
+                <input type="text" id="editName" required />
+                <label>Beschreibung</label>
+                <input type="text" id="editDescription" required />
+                <label>Preis</label>
+                <input type="number" id="editPrice" required />
+                <label>Bild-URL</label>
+                <input type="text" id="editImageUrl" />
+                <label>Rabatt (%)</label>
+                <input type="number" id="editDiscount" />
+                <label>
+                    <input type="checkbox" id="editIsOffer" />
+                    Sonderangebot?
+                </label>
+                <div style="margin-top: 15px;">
+                    <button type="submit" class="btn-save">
+                        <i class="fas fa-save"></i> Speichern
+                    </button>
+                    <button type="button" class="btn-cancel" id="cancelEditBtn">
+                        <i class="fas fa-times-circle"></i> Abbrechen
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>

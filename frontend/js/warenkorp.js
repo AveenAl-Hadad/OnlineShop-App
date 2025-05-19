@@ -26,16 +26,17 @@ $(document).ready(function () {
         updateCartIcon();// Zähler aktualisieren
     });
 
-   // 🧾 Modal öffnen
+  // 🧾 Modal öffnen
     $('#cartButton').on('click', function () {
         $('#cartModal').fadeIn();
         renderCart();
     });
 
-    // ❌ Modal schließen  
+ // ❌ Modal schließen  
     $(document).on('click', '#closeCartModal, #continueShopping', function () {
         $('#cartModal').fadeOut();
     });
+    
     
     // 🧹 Warenkorb komplett leeren
     $(document).on('click', '#clearCart', function () {
@@ -153,3 +154,6 @@ function updateCartIcon() {
 function storeAllProducts(products) {
     localStorage.setItem('allProducts', JSON.stringify(products));
 }
+
+
+ 

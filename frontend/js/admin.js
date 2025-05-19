@@ -24,9 +24,14 @@ $(document).on('click', '.edit-product', function () {
     $('#editProductModal').fadeIn();
 });
 
-// Wenn "Schließen" (X) oder "Abbrechen"-Button gedrückt wird, Modal ausblenden
-$('#closeEditModal, #cancelEditBtn').on('click', function () {
-    $('#editProductModal').fadeOut();
+// Bearbeiten-Modal schließen
+$(document).on('click', '#cancelEditBtn, #closeEditModal', function () {
+    $('#editProductModal').hide();
+});
+
+// Formular zurücksetzen (optional)
+$(document).on('click', '.btn-reset', function () {
+    $(this).closest('form')[0].reset();
 });
 
 // Beim Absenden des Bearbeiten-Formulars
@@ -126,4 +131,22 @@ $('#addProductForm').on('submit', function (e) {
             showMessage('❌ Fehler beim Hinzufügen.', 'error');
         }
     });
+});
+// add product
+// Öffnet das Modal
+$('#openAddProductModal').on('click', function (e) {
+  e.preventDefault(); // Verhindert den Link-Klick
+  $('#addProductModal').show();
+});
+
+// Hinzufügen-Modal schließen
+$(document).on('click', '#cancelAddProduct, #closeAddProductModal', function () {
+    $('#addProductModal').hide();
+});
+
+// Klick außerhalb vom Modal schließt es
+$(window).on('click', function (e) {
+  if (e.target.id === 'addProductModal') {
+    $('#addProductModal').hide();
+  }
 });
