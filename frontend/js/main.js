@@ -113,7 +113,8 @@ function loadProducts(sortBy = '') {
         method: 'GET',
         success: function (products) {
 
-            storeAllProducts(products);// ✅ Wichtig für renderCart()
+            storeAllProducts(products); // ✅ Wichtig für renderCart()
+
             // 🔃 Produkte sortieren
             if (sortBy === 'price') {
                 products.sort((a, b) => parseFloat(a.price) - parseFloat(b.price)); // Preis aufsteigend
@@ -125,6 +126,19 @@ function loadProducts(sortBy = '') {
 
             if (products.length > 0) {
                 products.forEach(product => {
+
+                    const stockInfo = product.stock > 0
+                        ? `<p class="inventory">Lagerbestand: ${product.stock}</p>`
+                        : `<br>`;
+
+                    const addToCartButton = product.stock > 0
+                        ? `<button class="add-to-cart btn btn-cart" data-id="${product.id}">
+                               <i class="fas fa-cart-plus"></i> In den Warenkorb
+                           </button>`
+                        : `<button class="add-to-cart btn btn-cart" data-id="${product.id}" disabled>
+                               <i class="fas fa-cart-plus"></i> Ausverkauft
+                           </button>`;
+
                     let priceDisplay = `<p>€${parseFloat(product.price).toFixed(2)}</p>`;
 
                     // 💰 Falls Sonderangebot aktiv ist und Rabatt vorhanden
@@ -146,6 +160,8 @@ function loadProducts(sortBy = '') {
                             <h3>${product.name}</h3>
                             <p>${product.description}</p>
                             ${priceDisplay}
+                            ${stockInfo}
+                            ${addToCartButton}
                             ${isAdmin() ? `
                                <div class="admin-buttons">
                                     <button class="edit-product btn btn-edit" data-product='${JSON.stringify(product)}'>
@@ -155,11 +171,7 @@ function loadProducts(sortBy = '') {
                                         <i class="fas fa-trash-alt"></i> Löschen
                                     </button>
                                 </div>
-                            ` : `
-                                <button class="add-to-cart btn btn-cart" data-id="${product.id}">
-                                    <i class="fas fa-cart-plus"></i> In den Warenkorb
-                                </button>
-                            `}
+                            ` : ''}
                         </div>
                     `;
 
@@ -175,7 +187,9 @@ function loadProducts(sortBy = '') {
         }
     });
 }
-storeAllProducts(products); 
+
+
+
 // HTML-Fragmente mit jQuery Am Ende von index.html
 $(document).ready(function () {
   // Lade externe HTML-Blöcke

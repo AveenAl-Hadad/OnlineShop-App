@@ -1,8 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const db = require('../config/db');  // Deine MySQL-Datenbankverbindung
-
-
+// Register eines Kunde
 exports.register = (req, res) => {
     const { username, email, password } = req.body;
 
@@ -33,7 +32,7 @@ exports.register = (req, res) => {
     });
 };
 
-// Login eines Benutzers
+// Login eines Kunde
 exports.login = (req, res) => {
     const { email, password } = req.body;
 
