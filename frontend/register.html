@@ -1,25 +1,33 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
- 
-    <title>Registrieren</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-
-    <h1>Registrieren</h1>
+<div id="registerModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeRegisterModal">&times;</span>
+    <h2>Registrieren</h2>
     <form id="registerForm">
-        <input type="text" id="registerUsername" placeholder="Username" required />
-        <input type="email" id="registerEmail" placeholder="Email" required />
-        <input type="password" id="registerPassword" placeholder="Passwort" required />
-        <button type="submit">Registrieren</button>
-    </form>
-    
-    <!-- jQuery zuerst laden -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <div class="form-group">
+        <label for="registerUsername">Name:</label>
+        <input type="text" id="registerUsername" required>
+      </div>
 
-    <script src="js/auth.js"></script>
-</body>
-</html>
+      <div class="form-group">
+        <label for="registerEmail">Email:</label>
+        <input type="email" id="registerEmail" placeholder="beispiel@web.com" required>
+      </div>
+
+      <div class="form-group">
+        <label for="registerPassword">Passwort:</label>
+        <input type="password" id="registerPassword" placeholder="Passwort" required>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Passwort bestätigen:</label>
+        <input type="password" id="confirmPassword" placeholder="Passwort wiederholen" required>
+        <input type="checkbox" id="togglePassword"> 
+        <label for="togglePassword">Passwörter anzeigen</label>
+      </div>
+
+      <div class="form-group">
+        <button type="submit" class="btn-login">Registrieren</button>
+      </div>
+    </form>
+  </div>
+</div>

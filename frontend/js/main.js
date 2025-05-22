@@ -12,6 +12,12 @@
  */
 
 $(document).ready(function () {
+     // Lade externe HTML-Blöcke
+  $('#add-product-container').load('add-product.html');
+  $('#edit-product-container').load('edit-product.html');
+ 
+  $('#cartModal').load('warenkorp.html');
+  
     const token = getToken(); // 🔐 Token (JWT) aus localStorage holen
 
     $('#openAddProductModal').hide(); // 🔒 addProductLink zu Beginn ausblenden
@@ -47,6 +53,7 @@ $(document).ready(function () {
         }
     }
 
+
      // 🔴 Logout-Logik
     $('#logoutLink').on('click', function (e) {
         e.preventDefault(); // Verhindert Standardverhalten des Links
@@ -75,6 +82,9 @@ $('#sortSelect').on('change', function () {
     const sortBy = $(this).val(); // Wert lesen
     loadProducts(sortBy);         // Produkte neu laden mit Sortierung
 });
+
+ 
+
 
 // 🔒 Holt Token aus localStorage
 function getToken() {
@@ -178,13 +188,7 @@ function loadProducts(sortBy = '') {
 
 
 // HTML-Fragmente mit jQuery Am Ende von index.html
-$(document).ready(function () {
-  // Lade externe HTML-Blöcke
-  $('#add-product-container').load('add-product.html');
-  $('#edit-product-container').load('edit-product.html');
-  
-  $('#cartModal').load('warenkorp.html');
-});
+
 //jQuery – Automatischer Bildwechsel für Galary bilder startseite
 $(document).ready(function () {
   let currentSlide = 0;

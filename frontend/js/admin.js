@@ -132,6 +132,8 @@ $('#addProductForm').on('submit', function (e) {
         }
     });
 });
+
+
 // add product
 // Öffnet das Modal
 $('#openAddProductModal').on('click', function (e) {

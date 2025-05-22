@@ -47,7 +47,10 @@ $(document).ready(function () {
 
     // 💳 Zur Kasse (Platzhalter)
    $(document).on('click', '#checkout', function () {
-        window.location.href = 'checkout.html';
+        //window.location.href = 'checkout.html';
+        $('#checkout-container').load('checkout.html', function () {
+            $('#checkoutModal').fadeIn();
+        });
     });
 
 

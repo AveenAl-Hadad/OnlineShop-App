@@ -1,4 +1,5 @@
 $(document).ready(function () {
+     
     
     $('#checkoutForm').on('submit', function (e) {
         e.preventDefault();
@@ -33,4 +34,16 @@ $(document).ready(function () {
 
         });
     });
+    
+  // ❌ Modal schließen
+  $(document).on('click', '#closeCheckoutModal', function () {
+    $('#checkoutModal').fadeOut();
+  });
+
+  // Modal schließen beim Klicken außerhalb
+  $(window).on('click', function (e) {
+    if ($(e.target).is('#checkoutModal')) {
+      $('#checkoutModal').fadeOut();
+    }
+  });  
 });
