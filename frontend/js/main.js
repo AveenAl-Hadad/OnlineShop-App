@@ -171,7 +171,7 @@ function loadProducts(sortBy = '') {
                                         <i class="fas fa-trash-alt"></i> Löschen
                                     </button>
                                 </div>
-                            ` : ''}
+                            ` : ' '}
                         </div>
                     `;
 
@@ -187,9 +187,7 @@ function loadProducts(sortBy = '') {
         }
     });
 }
-
-
-
+storeAllProducts(products); 
 // HTML-Fragmente mit jQuery Am Ende von index.html
 $(document).ready(function () {
   // Lade externe HTML-Blöcke
