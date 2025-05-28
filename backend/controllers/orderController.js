@@ -49,6 +49,56 @@ exports.createOrder = async (req, res) => {
     });
 };
 */
+
+exports.getOrdersByUser = (req, res) => {
+    const userId = req.user.id;
+
+    const ordersSql = `SELECT * FROM orders WHERE user_id = ?`;
+
+    db.query(ordersSql, [userId], (err, orders) => {
+        if (err) {
+            console.error("Fehler beim Abrufen der Bestellungen:", err);
+            return res.status(500).json({ message: "Fehler beim Abrufen" });
+        }
+
+        if (orders.length === 0) {
+            return res.json([]);
+        }
+
+        // Hole alle order_ids
+        const orderIds = orders.map(order => order.id);
+
+        // Frage alle Artikel für diese Bestellungen ab, inkl. Produktname
+        const itemsSql = `
+            SELECT 
+                oi.order_id,
+                oi.quantity,
+                p.name AS product_name
+            FROM order_items oi
+            JOIN products p ON oi.product_id = p.id
+            WHERE oi.order_id IN (?)
+        `;
+
+        db.query(itemsSql, [orderIds], (err, items) => {
+            if (err) {
+                console.error("Fehler beim Abrufen der Artikel:", err);
+                return res.status(500).json({ message: "Fehler beim Abrufen der Artikel" });
+            }
+
+            // Ordne Artikel den Bestellungen zu
+            const ordersWithItems = orders.map(order => {
+                const orderItems = items.filter(item => item.order_id === order.id);
+                return {
+                    ...order,
+                    items: orderItems
+                };
+            });
+
+            res.json(ordersWithItems);
+        });
+    });
+};
+
 exports.createOrder = (req, res) => {
     const { delivery_address, name, phone, email, payment_method, cart } = req.body;
     const userId = req.user.id;

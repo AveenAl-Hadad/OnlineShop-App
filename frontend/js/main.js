@@ -193,6 +193,7 @@ $(document).ready(function () {
   // Lade externe HTML-Blöcke
   $('#add-product-container').load('add-product.html');
   $('#edit-product-container').load('edit-product.html');
-  $('#slideshow').load('galary-bilder.html');
   $('#cartModal').load('warenkorp.html');
+ 
 });
+

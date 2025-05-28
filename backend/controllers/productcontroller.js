@@ -15,12 +15,12 @@ exports.addProduct = (req, res) => {
     const { name, description, price, discount, is_offer, image_url, stock } = req.body;
 
     // Überprüfen, ob alle notwendigen Felder gesendet wurden
-    if (!name || !description || !price || !image_url || stock == null) {
+    if (!name || !description || !price || !image_url || !stock == null ) {
         return res.status(400).json({ message: 'Alle Felder müssen ausgefüllt werden!' });
     }
 
     // SQL-Query zum Hinzufügen eines Produkts
-    const query = 'INSERT INTO products (name, description, price, discount, is_offer, image_url) VALUES (?, ?, ?, ?, ?, ?)';
+    const query = 'INSERT INTO products (name, description, price, discount, is_offer, image_url, stock) VALUES (?, ?, ?, ?, ?,?, ?)';
     db.query(query, [name, description, price, discount, is_offer, image_url, stock], (err, result) => {
         if (err) {
             console.error(err);
@@ -37,11 +37,11 @@ exports.updateProduct = (req, res) => {
     const id = req.params.id; // 🔁 Änderung hier!
     const { name, description, price, discount, is_offer, image_url , stock} = req.body;
 
-    if (!name || !description || !price || stock == null) {
+    if (!name || !description || !price || !stock == null) {
         return res.status(400).json({ message: 'Alle Felder müssen ausgefüllt werden!' });
     }
 
-    const query = 'UPDATE products SET name = ?, description = ?, price = ?, discount = ?, is_offer = ?, image_url = ? WHERE id = ?';
+    const query = 'UPDATE products SET name = ?, description = ?, price = ?, discount = ?, is_offer = ?, image_url = ?, stock = ? WHERE id = ?';
     db.query(query, [name, description, price, discount, is_offer, image_url, stock, id], (err, result) => {
         if (err) {
             return res.status(500).json({ message: 'Fehler beim Bearbeiten des Produkts', error: err });

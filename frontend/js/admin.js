@@ -7,6 +7,7 @@
  */
 
 // Wenn auf einen "Bearbeiten"-Button (class="edit-product") geklickt wird:
+$('#edit-product-container').load('edit-product.html', function() { 
 $(document).on('click', '.edit-product', function () {
 
     const product = $(this).data('product'); // Holt das Produkt-Objekt aus dem data-Attribut
@@ -19,6 +20,7 @@ $(document).on('click', '.edit-product', function () {
     $('#editDiscount').val(product.discount);
     $('#editIsOffer').val(product.is_offer);
     $('#editImageUrl').val(product.image_url);
+    $('#editStock').val(product.stock);
 
      // Zeigt das Modal-Fenster an (per fadeIn)
     $('#editProductModal').fadeIn();
@@ -27,11 +29,6 @@ $(document).on('click', '.edit-product', function () {
 // Bearbeiten-Modal schließen
 $(document).on('click', '#cancelEditBtn, #closeEditModal', function () {
     $('#editProductModal').hide();
-});
-
-// Formular zurücksetzen (optional)
-$(document).on('click', '.btn-reset', function () {
-    $(this).closest('form')[0].reset();
 });
 
 // Beim Absenden des Bearbeiten-Formulars
@@ -46,7 +43,9 @@ $('#editProductForm').submit(function (e) {
         price: parseFloat($('#editPrice').val()),
         discount: parseFloat($('#editDiscount').val()) || 0,
         is_offer: $('#editIsOffer').is(':checked'),
-        image_url: $('#editImageUrl').val()
+        image_url: $('#editImageUrl').val(),
+        stock: parseInt($('#editStock').val()) || 0
+        
     };
 
      // AJAX-PUT-Request an den Server senden
@@ -66,7 +65,7 @@ $('#editProductForm').submit(function (e) {
         }
     });
 });
-
+});
 // Wenn auf "Löschen"-Button geklickt wird
 $(document).on('click', '.delete-product', function () {
     const id = $(this).data('id'); // Produkt-ID aus dem Button
@@ -89,6 +88,7 @@ $(document).on('click', '.delete-product', function () {
 });
 
 // 🔽 Produkt hinzufügen
+$('#add-product-container').load('add-product.html', function() {  
 $('#addProductForm').on('submit', function (e) {
     e.preventDefault();
 
@@ -105,7 +105,8 @@ $('#addProductForm').on('submit', function (e) {
         price: parseFloat($('#price').val()),
         discount: parseFloat($('#discount').val()) || 0,
         is_offer: $('#is_offer').is(':checked'),
-        image_url: $('#image_url').val()
+        image_url: $('#image_url').val(),
+        stock: parseInt($('#stock').val()) || 0
     };
 
     // AJAX-POST-Request an die API
@@ -149,4 +150,9 @@ $(window).on('click', function (e) {
   if (e.target.id === 'addProductModal') {
     $('#addProductModal').hide();
   }
+  // Formular zurücksetzen (optional)
+$(document).on('click', '.btn-reset', function () {
+    $(this).closest('form')[0].reset();
+});
+});
 });

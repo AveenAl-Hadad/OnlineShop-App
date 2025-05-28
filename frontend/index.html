@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <title>Online Shop</title>
@@ -12,14 +13,13 @@
     <!-- Navigation automatisch laden -->
   <nav>
     <a href="index.html">Startseite</a>
-    
-    <a href="register.html">Registrieren</a>
+    <a href="#" id="registerLink">Registrieren</a>
     <a href="#" id="openAddProductModal">Produkt hinzufügen</a>
     <a href="order.html" id="orderLinkCustomer">Meine Bestellungen</a>
     <a href="admin-orders.html" id="orderLinkAdmin">Alle Bestellungen</a>
     <div id="user-info" style="float: right; font-weight: bold; color: white; margin-right: 15px;"></div>
     <a href="#" id="logoutLink" style="display: none;float: right;">Abmelden</a>
-    <a href="login.html" id="loginLink" style="float: right;">Anmelden</a>  
+    <a href="#" id="loginLink" style="float: right;">Anmelden</a>  
     <button id="cartButton" style="float: right; margin-right: 10px;">🛒 Warenkorb <span id="cartCount">(0)</span></button>
 </nav>
 <!--Bild galary -->
@@ -55,19 +55,22 @@
      <!-- 🛍️ Produkte -->
     <h1>Produkte</h1>
     <div id="products-container"></div>
-     <!-- 🧠 Meldungen -->
-    <div id="messageBox" style="display:none; padding:10px; margin-top:10px;"></div>
-
+  
     <!-- Wird per jQuery geladen -->
     <div id="add-product-container"></div>
     <div id="edit-product-container"></div>
+    <div id="login-container"></div>
+    <div id="register-container"></div>
 
     <!-- 📜 Skripte -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/admin.js"></script>
     <script src="js/warenkorp.js"></script>
     <script src="js/order.js"></script>
     <script src="js/galary-bilder.js"></script>
+    <script src="js/auth.js"></script>
+     
 </body>
 </html>

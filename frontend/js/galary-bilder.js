@@ -1,5 +1,6 @@
 //jQuery – Automatischer Bildwechsel für Galary bilder startseite
 $(document).ready(function () {
+  $('#slideshow').load('galary-bilder.html');
   let currentSlide = 0;
   const slides = $('.slide');
   const totalSlides = slides.length;

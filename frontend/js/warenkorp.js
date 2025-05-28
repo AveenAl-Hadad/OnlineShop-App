@@ -45,9 +45,16 @@ $(document).ready(function () {
         updateCartIcon();   // Zähler aktualisieren
     });
 
-    // 💳 Zur Kasse (Platzhalter)
-   $(document).on('click', '#checkout', function () {
-        window.location.href = 'checkout.html';
+   // 💳 Zur Kasse nur wenn Warenkorb nicht leer
+    $(document).on('click', '#checkout', function () {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        if (cart.length === 0) {
+            alert('❌ Dein Warenkorb ist leer. Bitte zuerst Produkte hinzufügen.');
+            return; // 🚫 Kein Redirect
+        }
+
+        window.location.href = 'checkout.html'; // ✅ Nur wenn nicht leer
     });
 
 

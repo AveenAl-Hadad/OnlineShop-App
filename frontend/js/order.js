@@ -12,31 +12,44 @@ $(document).ready(function () {
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('token')
         },
-        success: function (orders) {
+        success: (orders) => {
+            const container = $('#orders-container');
+            container.empty();
+
             if (orders.length === 0) {
-                $('#orders-container').html('<p>📭 Keine Bestellungen gefunden.</p>');
+                container.append('<p>Keine Bestellungen gefunden.</p>');
                 return;
             }
 
             orders.forEach(order => {
-                const html = `
+                const orderDiv = $(`
                     <div class="order-box">
-                        <p><strong>Bestelldatum:</strong> ${order.order_date}</p>
-                        <p><strong>Status:</strong> ${order.status}</p>
+                        <h3>🧾 Bestellung Nr. ${order.id}</h3>
+                        <p><strong>Datum:</strong> ${new Date(order.order_date).toLocaleString()}</p>
                         <p><strong>Adresse:</strong> ${order.delivery_address}</p>
+                        <p><strong>Status:</strong> ${order.status}</p>
                         <p><strong>Name:</strong> ${order.name}</p>
                         <p><strong>Email:</strong> ${order.email}</p>
                         <p><strong>Telefon:</strong> ${order.phone}</p>
-                        <p><strong>Zahlungsart:</strong> ${order.payment_method}</p>
+                        <ul class="items-list"></ul>
                     </div>
-                `;
-                $('#orders-container').append(html);
+                `);
+
+                const itemsList = orderDiv.find('.items-list');
+                if (order.items && order.items.length > 0) {
+                    order.items.forEach(item => {
+                        itemsList.append(`<li>${item.quantity} × ${item.product_name}</li>`);
+                    });
+                } else {
+                    itemsList.append('<li>Keine Artikel gefunden.</li>');
+                }
+
+                container.append(orderDiv);
             });
         },
-        error: function (err) {
-            console.error(err);
-            $('#orders-container').html('<p>❌ Fehler beim Laden der Bestellungen.</p>');
-        }
-    });
+        error: (err) => {
+        console.error('Fehler beim Laden der Bestellungen:', err);
+        $('#orders-container').html('<p>Fehler beim Laden der Bestellungen</p>');
+    }
+  });
 });
-

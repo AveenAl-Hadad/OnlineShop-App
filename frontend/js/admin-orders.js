@@ -20,6 +20,14 @@ $(document).ready(function () {
 
             $('#admin-orders-container').html('');
             orders.forEach(order => {
+                let itemsHtml = '';
+                order.items.forEach(item => {
+                    itemsHtml += `
+                    <li>
+                        ${item.name} – Menge: ${item.quantity} – Einzelpreis: ${item.price.toFixed(2)} €
+                    </li>
+                    `;
+                });
                 const html = `
                     <div class="order-box">
                         <p><strong>Bestellung ID:</strong> ${order.id}</p>

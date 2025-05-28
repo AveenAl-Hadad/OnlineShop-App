@@ -1,65 +1,155 @@
-/**
- * Registrierung: Benutzerdaten per POST an API senden → Bei Erfolg Weiterleitung zu login.html.
- * 
- * Login: Login-Daten senden → Bei Erfolg Token & Rolle speichern → Weiterleitung zu index.html startseite.
-
- */
-
-// Dieser Block wird ausgeführt, sobald das HTML-Dokument komplett geladen wurde
 $(document).ready(function() {
 
-     // Wenn das Registrierungsformular abgeschickt wird...
-    $('#registerForm').submit(function(e) {
-        e.preventDefault();  // Verhindert, dass das Formular normal abgeschickt wird (kein Seiten-Neuladen)
-        // Eingabewerte aus den Formularfeldern lesen
-        const username = $('#registerUsername').val();
-        const email = $('#registerEmail').val();
-        const password = $('#registerPassword').val();
-
-         // AJAX-POST-Anfrage an die API senden
-        $.ajax({
-            url: 'http://localhost:5000/api/auth/register',  // ➜ Backend-Route für Registrierung
-            method: 'POST',
-            contentType: 'application/json', // Der Server erwartet JSON
-            data: JSON.stringify({ username, email, password }), // Daten im JSON-Format senden
-
-            success: function(response) {
-                // Wenn die Registrierung erfolgreich ist:
-                alert('Registrierung erfolgreich! ✅');                
-                window.location.href = 'login.html';  // Nach Registrierung zur Login-Seite
-            },
-            error: function(xhr, status, error) {
-                // Falls ein Fehler auftritt (z. B. E-Mail schon registriert)
-                alert('❌ Fehler bei der Registrierung: ' + xhr.responseText);
-            }
+    $('#login-container').load('login.html', function() {
+        // Passwort anzeigen/ausblenden
+        $('#showPassword').on('change', function() {
+            const passwordField = $('#loginPassword');
+            const type = $(this).is(':checked') ? 'text' : 'password';
+            passwordField.attr('type', type);
         });
-    });
 
-     // Wenn das Login-Formular abgeschickt wird...
-    $('#loginForm').submit(function(e) {
-        e.preventDefault();  // Verhindert normales Formular-Absenden
-        // Eingabewerte aus dem Login-Formular lesen
-        const email = $('#loginEmail').val();
-        const password = $('#loginPassword').val();
+        // Login-Formular absenden
+        $('#loginForm').submit(function(e) {
+            e.preventDefault();
 
-        $.ajax({
+            const email = $('#loginEmail').val();
+            const password = $('#loginPassword').val();
+            const rememberMe = $('#rememberMe').is(':checked');
+
+            $.ajax({
             url: 'http://localhost:5000/api/auth/login',
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ email, password }),
             success: function(response) {
-                //alert('Login erfolgreich! ✅');
-                // Speichere das Token und die Rolle lokal im Browser
-                localStorage.setItem('token', response.token);// Für Authentifizierung bei späteren API-Aufrufen
-                localStorage.setItem('role', response.role); // z. B. 'admin' oder 'user'
+                // Token und Rolle speichern
+                console.log("Login erfolgreich:", response); // NEU
+                if (rememberMe) {
+                localStorage.setItem('token', response.token);
+                localStorage.setItem('role', response.role);
+                } else {
+                sessionStorage.setItem('token', response.token);
+                sessionStorage.setItem('role', response.role);
+                }
+                // Modal schließen
+                $('#loginModal').fadeOut();
                 // Weiterleitung zur Startseite
                 window.location.href = 'index.html';
-              
             },
-            error: function(xhr, status, error) {
-                 // Bei Loginfehler (z. B. falsches Passwort oder nicht registrierte E-Mail)
+            error: function(xhr) {
                 alert('❌ Fehler beim Login: ' + xhr.responseText);
             }
+            });// ajax ende
+        }); // loginForm Ende
+
+        // Modal öffnen
+        $('#loginLink').on('click', function(e) {
+            e.preventDefault();
+            $('#loginModal').fadeIn();
         });
-    });
-});
+
+        // Modal schließen
+        $('#closeLoginModal').on('click', function() {
+            $('#loginModal').fadeOut();
+        });
+
+        // Schließen beim Klicken außerhalb des Modals
+        $(window).on('click', function(e) {
+            if ($(e.target).is('#loginModal')) {
+            $('#loginModal').fadeOut();
+            }
+        });
+       
+        // Öffnet das Registrierungs-Modal
+        $('#openRegisterModal').on('click', function(e) {
+            e.preventDefault();
+            $('#loginModal').fadeOut();
+            $('#registerModal').fadeIn();
+        });
+
+
+    });// Ende load login container 
+
+        
+    //Registierung
+    $('#register-container').load('register.html', function() {  
+
+        // Passwörter anzeigen/ausblenden
+        $('#showRegisterPassword').on('change', function() {
+            const type = $(this).is(':checked') ? 'text' : 'password';
+            $('#registerPassword, #confirmPassword').attr('type', type);
+        });
+
+        // Passwortbestätigung prüfen
+        $('#registerPassword, #confirmPassword').on('keyup', function() {
+            // Passwörter anzeigen/ausblenden
+            $('#showRegisterPassword').on('change', function() {
+                const type = $(this).is(':checked') ? 'text' : 'password';
+                $('#registerPassword, #confirmPassword').attr('type', type);
+            });
+        });
+
+        // Passwortbestätigung prüfen
+        $('#registerPassword, #confirmPassword').on('keyup', function() {
+            const password = $('#registerPassword').val();
+            const confirmPassword = $('#confirmPassword').val();
+            const message = $('#passwordMatchMessage');
+
+            if (password === confirmPassword) {
+                message.text('Passwörter stimmen überein').css('color', 'green');
+            } else {
+                message.text('Passwörter stimmen nicht überein').css('color', 'red');
+            }
+        });
+      
+        // Registrierung absenden
+        $('#registerForm').submit(function (e) {
+            e.preventDefault();
+
+            const username = $('#registerUsername').val();
+            const email = $('#registerEmail').val();
+            const password = $('#registerPassword').val();
+            const confirmPassword = $('#confirmPassword').val();
+
+            // Passwort-Vergleich
+            if (password !== confirmPassword) {
+            alert('❌ Die Passwörter stimmen nicht überein.');
+            return;
+            }
+
+            // AJAX-POST
+            $.ajax({
+                url: 'http://localhost:5000/api/auth/register',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ username, email, password }),
+                success: function (response) {
+                    alert('✅ Registrierung erfolgreich!');
+                    $('#registerModal').fadeOut();
+                    $('#loginModal').fadeIn();
+                },
+                error: function (xhr) {
+                    alert('❌ Fehler bei der Registrierung: ' + xhr.responseText);
+                }
+            }); // ende ajax
+        }); // ende registerForm
+
+        // Modal öffnen
+        $('#registerLink').on('click', function (e) {
+            e.preventDefault();
+            $('#registerModal').fadeIn();
+        });
+      
+            // Modal schließen
+        $('#closeRegisterModal').on('click', function () {
+            $('#registerModal').fadeOut();
+        });
+
+        $(window).on('click', function (e) {
+            if ($(e.target).is('#registerModal')) {
+            $('#registerModal').fadeOut();            
+            }
+        });   
+       
+ });  // ende load registerLink
+}); // ende Ready
