@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const db = require('../config/db');  // Deine MySQL-Datenbankverbindung
+const db = require('../config/db');  // MySQL-Datenbankverbindung
+
 // Register eines Kunde
 exports.register = (req, res) => {
     const { username, email, password } = req.body;
